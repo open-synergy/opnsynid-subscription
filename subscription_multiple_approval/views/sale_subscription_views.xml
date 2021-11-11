@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2021 OpenSynergy Indonesia
      Copyright 2021 PT. Simetri Sinergi Indonesia
-     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <odoo>
     <record id="sale_subscription_approval_view_form" model="ir.ui.view">
         <field name="name">sale.subscription_approval form</field>
         <field name="model">sale.subscription</field>
         <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form" />
+        <field name="priority" eval="20" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='state']" position="attributes">
+            <xpath expr="//header/field[@name='state']" position="attributes">
                 <attribute name="statusbar_visible">
-                    "draft,open,pending,close"
+                    draft,confirm,open,close
                 </attribute>
             </xpath>
             <xpath expr="//button[@name='set_open']" position="before">
@@ -48,36 +49,26 @@
                 expr="//button[@name='%(sale_subscription.sale_subscription_close_reason_wizard_action)d'][1]"
                 position="attributes"
             >
-                <attribute name="attrs">
-                    {'invisible':[('state','in',['draft','close','cancel','reject'])]}
-                </attribute>
+                <attribute name="states">open</attribute>
+                <attribute name="attrs">{}</attribute>
             </xpath>
 
             <xpath
                 expr="//button[@name='%(sale_subscription.sale_subscription_close_reason_wizard_action)d'][2]"
                 position="attributes"
             >
-                <attribute name="attrs">
-                    {'invisible':[('state','in',['draft','close','cancel','reject'])]}
-                </attribute>
+                <attribute name="states">draft,open,close</attribute>
+                <attribute name="attrs">{}</attribute>
             </xpath>
-
-            <!-- <button name="%(sale_subscription.sale_subscription_close_reason_wizard_action)d" string="Cancel Subscription"
-                    type="action" context="{'cancel':1}"
-                    attrs="{'invisible': [('state','in',['cancel','close'])]}"/> -->
 
             <xpath expr="//button[@name='set_open']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- <xpath expr="//button[@name='button_draft']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath> -->
-
             <xpath expr="//header" position="after">
-                <field name="need_validation" invisible="1" />
-                <field name="approved" invisible="1" />
-                <field name="rejected" invisible="1" />
+                <field name="need_validation" invisible="0" />
+                <field name="approved" invisible="0" />
+                <field name="rejected" invisible="0" />
                 <div
                     role="alert"
                     class="alert alert-warning"

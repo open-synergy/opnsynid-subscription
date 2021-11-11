@@ -1,6 +1,6 @@
 # Copyright 2021 OpenSynergy Indonesia
 # Copyright 2021 PT. Simetri Sinergi Indonesia
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import fields, models
 
@@ -16,8 +16,12 @@ class SaleSubscription(models.Model):
     _approval_state = "confirm"
 
     state = fields.Selection(
-        selection_add=[
+        selection=[
+            ("draft", "New"),
             ("confirm", "Confirm"),
+            ("open", "In Progress"),
+            ("pending", "To Renew"),
+            ("close", "Closed"),
             ("cancel", "Cancelled"),
             ("reject", "Rejected"),
         ]
@@ -38,12 +42,3 @@ class SaleSubscription(models.Model):
         for document in self:
             if document.approved:
                 document.set_open()
-
-    # def action_reject_approval(self):
-    #     _super = super(AccountBankStatement, self)
-    #     _super.action_reject_approval()
-    #     for document in self:
-    #         if document.rejected:
-    #             for line in document.line_ids:
-    #                 if line.journal_entry_ids:
-    #                     line.button_cancel_reconciliation()
