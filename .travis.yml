@@ -39,7 +39,7 @@ install:
   - travis_install_nightly
   - git clone --depth=1
     https://${CI_USER_TOKEN}:x-oauth-basic@github.com/open-synergy/oe.git
-    ${HOME}/dependencies
+    ${HOME}/dependencies/oe
 
 script:
   - travis_run_tests
