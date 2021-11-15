@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="sale_subscription_workflow_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription_workflow Form</field>
+        <field name="model">sale.subscription</field>
+        <field name="priority" eval="250" />
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook" position="inside">
+                    <page
+                        name="page_sale_subscription_policy"
+                        string="Policy"
+                        groups="base.group_system"
+                    >
+                        <group name="grp_sale_subscription_policy">
+                            <field name="policy_template_id" />
+                            <field name="open_ok" />
+                            <field name="quotation_ok" />
+                            <field name="close_ok" />
+                            <field name="cancel_ok" />
+                            <field name="restart_ok" />
+                            <field name="upsell_ok" />
+                            <field name="pending_ok" />
+                            <field name="reject_ok" />
+                            <field name="approve_ok" />
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('open_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//button[@name='prepare_renewal_order']"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('quotation_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//button[@name='%(sale_subscription.sale_subscription_close_reason_wizard_action)d'][1]"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('close_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//button[@name='%(sale_subscription.sale_subscription_close_reason_wizard_action)d'][2]"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('cancel_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_restart']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('restart_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//button[@name='%(sale_subscription.wizard_action)d']"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('upsell_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='set_pending']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('pending_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+                <xpath
+                    expr="//button[@name='action_approve_approval']"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('approve_ok','=',False)]}
+                    </attribute>
+                </xpath>
+                <xpath
+                    expr="//button[@name='action_reject_approval']"
+                    position="attributes"
+                >
+                    <attribute name="attrs">
+                        {'invisible':[('reject_ok','=',False)]}
+                    </attribute>
+                </xpath>
+
+            </data>
+        </field>
+    </record>
+
+</odoo>
