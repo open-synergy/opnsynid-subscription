@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="sale_subscription_template_auto_inv_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription_template_auto_inv form</field>
+        <field name="model">sale.subscription.template</field>
+        <field
+            name="inherit_id"
+            ref="sale_subscription.sale_subscription_template_view_form"
+        />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="auto_create_invoice" />
+                <field name="cron_id" />
+            </xpath>
+
+            <xpath expr="//button[@name='toggle_active']" position="after">
+                <button
+                    icon="fa-book"
+                    name="action_create_cron"
+                    string="Generate Cron"
+                    type="object"
+                    attrs="{'invisible':[('cron_id','!=',False)]}"
+                />
+                <button
+                    icon="fa-book"
+                    name="action_delete_cron"
+                    string="Delete Cron"
+                    type="object"
+                    attrs="{'invisible':[('cron_id','=',False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
