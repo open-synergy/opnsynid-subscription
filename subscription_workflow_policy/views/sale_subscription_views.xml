@@ -36,8 +36,8 @@
                             <field name="restart_ok" />
                             <field name="upsell_ok" />
                             <field name="pending_ok" />
-                            <!-- <field name="reject_ok" />
-                            <field name="approve_ok" /> -->
+                            <field name="reject_ok" />
+                            <field name="approve_ok" />
                         </group>
                     </page>
                 </xpath>
@@ -96,7 +96,7 @@
                     </attribute>
                 </xpath>
 
-                <!-- <xpath
+                <xpath
                     expr="//button[@name='action_approve_approval']"
                     position="attributes"
                 >
@@ -111,7 +111,7 @@
                     <attribute name="attrs">
                         {'invisible':[('reject_ok','=',False)]}
                     </attribute>
-                </xpath> -->
+                </xpath>
 
             </data>
         </field>

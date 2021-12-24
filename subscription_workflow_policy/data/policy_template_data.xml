@@ -88,5 +88,27 @@
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="0" />
 </record>
+<record id="policy_template_detail1" model="policy.template_detail">
+    <field name="template_id" ref="policy_template" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','sale.subscription'),('name','=','approve_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field name="states">confirm</field>
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="0" />
+</record>
+<record id="policy_template_detail1" model="policy.template_detail">
+    <field name="template_id" ref="policy_template" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','sale.subscription'),('name','=','reject_ok')]"
+            />
+    <field name="restrict_state" eval="1" />
+    <field name="states">confirm</field>
+    <field name="restrict_user" eval="0" />
+    <field name="restrict_additional" eval="0" />
+</record>
 </data>
 </odoo>

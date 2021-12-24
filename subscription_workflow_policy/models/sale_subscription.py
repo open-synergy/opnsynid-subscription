@@ -51,16 +51,16 @@ class SaleSubscription(models.Model):
         compute="_compute_policy",
         store=False,
     )
-    # approve_ok = fields.Boolean(
-    #     string="Can Approve",
-    #     compute="_compute_policy",
-    #     store=False,
-    # )
-    # reject_ok = fields.Boolean(
-    #     string="Can Reject",
-    #     compute="_compute_policy",
-    #     store=False,
-    # )
+    approve_ok = fields.Boolean(
+        string="Can Approve",
+        compute="_compute_policy",
+        store=False,
+    )
+    reject_ok = fields.Boolean(
+        string="Can Reject",
+        compute="_compute_policy",
+        store=False,
+    )
 
     @api.onchange(
         "template_id",
