@@ -66,9 +66,9 @@
             </xpath>
 
             <xpath expr="//header" position="after">
-                <field name="need_validation" invisible="0" />
-                <field name="approved" invisible="0" />
-                <field name="rejected" invisible="0" />
+                <field name="need_validation" invisible="1" />
+                <field name="approved" invisible="1" />
+                <field name="rejected" invisible="1" />
                 <div
                     role="alert"
                     class="alert alert-warning"
