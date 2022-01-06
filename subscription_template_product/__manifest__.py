@@ -13,6 +13,7 @@
         "sale_subscription",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/sale_subscription_template_views.xml",
     ],
     "installable": True,
