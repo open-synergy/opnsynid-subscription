@@ -17,10 +17,18 @@
                 <group name="subscription_lines" string="Subsciption Lines" colspan="4">
                     <field name="template_line_ids" nolabel="1">
                         <tree editable="bottom">
-                            <field name="name" />
                             <field name="product_id" />
+                            <field name="name" />
                             <field name="quantity" />
-                            <field name="uom_id" />
+                            <field
+                                name="allowed_uom_ids"
+                                widget="many2many_tags"
+                                invisible="1"
+                            />
+                            <field
+                                name="uom_id"
+                                domain="[('id', 'in', allowed_uom_ids)]"
+                            />
                             <field name="price_unit" />
                             <field name="discount" />
                         </tree>
