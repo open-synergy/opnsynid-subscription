@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="sale_subscription_workflow_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription_workflow Form</field>
+        <field name="model">sale.subscription</field>
+        <field name="priority" eval="250" />
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                  <field
+                        name="allowed_contact_invoice_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                  <field
+                        name="contact_invoice_id"
+                        domain="[('id','in',allowed_contact_invoice_ids)]"
+                    />
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                  <field name="yearly_period" />
+                  <field name="monthly_period" />
+                  <field name="daily_period" />
+                  <field name="invoice_number" />
+                  <field name="invoice_method" />
+                  <field name="date_invoice_offset" />
+                  <field name="payment_term_id" />
+                </xpath>
+                <xpath expr="//page[@id='lines']" position="after">
+                    <page name="payment_schedule" string="Payment Schedule">
+                      <button
+                            name="action_create_payment_schedule"
+                            string="Create Payment Schedule"
+                            type="object"
+                        />
+                      <field name="payment_schedule_ids" colspan="2" nolabel="1">
+                          <tree>
+                              <field name="date_start" />
+                              <field name="date_end" />
+                              <field name="invoice_id" />
+                              <field name="date_invoice" />
+                              <field name="date_due" />
+                              <field name="no_invoice" />
+                              <field name="manual" />
+                              <field name="state" />
+                              <button
+                                    name="action_create_invoice"
+                                    string="Create Invoice"
+                                    type="object"
+                                    icon="fa-cogs"
+                                    states="uninvoiced"
+                                />
+
+                              <button
+                                    name="%(sale_subscription_link_invoice_action)d"
+                                    string="Link Invoice"
+                                    type="action"
+                                    icon="fa-link"
+                                    states="uninvoiced"
+                                />
+                              <button
+                                    name="action_mark_as_free"
+                                    string="Mark as Free"
+                                    type="object"
+                                    icon="fa-check"
+                                    states="uninvoiced"
+                                />
+                              <button
+                                    name="action_manually_controlled"
+                                    string="Manually Controlled"
+                                    type="object"
+                                    icon="fa-circle-o"
+                                    states="uninvoiced"
+                                />
+                              <button
+                                    name="action_delete_invoice"
+                                    string="Delete Invoice"
+                                    type="object"
+                                    icon="fa-eraser"
+                                    states="invoiced"
+                                />
+
+                              <button
+                                    name="action_disconnect_invoice"
+                                    string="Disconnect Invoice"
+                                    type="object"
+                                    icon="fa-unlink"
+                                    states="invoiced"
+                                />
+                              <button
+                                    name="action_mark_as_must_pay"
+                                    string="Mark as Must Pay"
+                                    type="object"
+                                    icon="fa-times"
+                                    states="free"
+                                />
+                              <button
+                                    name="action_no_manual"
+                                    string="Controlled"
+                                    type="object"
+                                    icon="fa-check-circle-o"
+                                    states="manual"
+                                />
+
+                          </tree>
+                      </field>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>
