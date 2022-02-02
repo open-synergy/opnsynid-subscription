@@ -185,7 +185,7 @@ class SaleSubscription(models.Model):
         date_start = self.date_start
         for _period_num in range(1, self.invoice_number + 1):
             date_end = self._get_payment_schedule_date_end(date_start)
-            date_invoice = self._get_payment_schedule_date_invoice(date_start)
+            date_invoice = self._get_payment_schedule_date_invoice(date_start, date_end)
             date_due = self._get_payment_schedule_date_due(date_invoice)
             data = {
                 "subscription_id": self.id,
@@ -209,16 +209,18 @@ class SaleSubscription(models.Model):
         return res
 
     @api.multi
-    def _get_payment_schedule_date_invoice(self, date):
+    def _get_payment_schedule_date_invoice(self, date_start, date_end):
         self.ensure_one()
         if self.invoice_method == "advance":
             factor = relativedelta(days=(self.date_invoice_offset * -1))
+            date = date_start
         else:
             factor = relativedelta(days=self.date_invoice_offset)
+            date = date_end
 
-        dt_start = fields.Date.from_string(date)
-        date_start = dt_start + factor
-        return fields.Date.to_string(date_start)
+        dt_date = fields.Date.from_string(date)
+        date_invoice = dt_date + factor
+        return fields.Date.to_string(date_invoice)
 
     @api.multi
     def _get_payment_schedule_date_start(self, date_end):
