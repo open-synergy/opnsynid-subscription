@@ -12,6 +12,7 @@
     "depends": [
         "subscription_workflow_policy",
         "sale_subscription_asset",
+        "subscription_auto_generate_invoice",
     ],
     "data": [
         "security/ir.model.access.csv",
