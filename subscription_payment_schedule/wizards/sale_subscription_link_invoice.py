@@ -30,7 +30,11 @@ class SaleSubscriptionLinkInvoice(models.TransientModel):
         for record in self:
             subscription = record.schedule_id.subscription_id
             criteria = [
-                ("partner_id", "=", subscription.partner_id.commercial_partner_id.id),
+                (
+                    "partner_id.commercial_partner_id.id",
+                    "=",
+                    subscription.partner_id.commercial_partner_id.id,
+                ),
                 ("state", "in", ["open", "paid"]),
                 ("type", "=", "out_invoice"),
             ]

@@ -6,4 +6,5 @@ from . import (
     sale_subscription_payment_schedule,
     sale_subscription,
     sale_subscription_line,
+    sale_subscription_template,
 )
