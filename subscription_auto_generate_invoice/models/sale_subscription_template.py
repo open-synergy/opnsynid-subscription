@@ -80,15 +80,18 @@ class SaleSubscriptionTemplate(models.Model):
 
     @api.model
     def cron_auto_create_invoice(self, subscription_id):
-        subscription_id = self.search([("id", "=", subscription_id)])[0]
-        subscription_id._auto_create_invoice()
+        template = self.search([("id", "=", subscription_id)])[0]
+        template._auto_create_invoice()
 
     @api.multi
     def _auto_create_invoice(self):
         self.ensure_one()
         obj_sale_subscription = self.env["sale.subscription"]
+        date_today = fields.Date.today()
         criteria = [
-            ("template_id", "=", self.id.id),
+            ("template_id", "=", self.id),
+            ("auto_create_invoice", "=", True),
+            ("recurring_next_date", "=", date_today),
         ]
         auto_generate = obj_sale_subscription.search(criteria)
         if auto_generate:
