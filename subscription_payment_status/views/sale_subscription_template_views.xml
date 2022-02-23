@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="sale_subscription_template_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription - form</field>
+        <field name="model">sale.subscription.template</field>
+        <field
+            name="inherit_id"
+            ref="sale_subscription.sale_subscription_template_view_form"
+        />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@name='description']" position="after">
+                    <group
+                        name="payment_status"
+                        colspan="4"
+                        col="2"
+                        string="Python Code for Payment Status"
+                    >
+                        <field name="payment_status_cron_id" />
+                        <button
+                            icon="fa-cogs"
+                            class="oe_highlight"
+                            name="action_create_payment_status_cron"
+                            string="Generate Cron"
+                            type="object"
+                            attrs="{'invisible':[('payment_status_cron_id','!=',False)]}"
+                        />
+                        <button
+                            icon="fa-eraser"
+                            class="oe_highlight"
+                            name="action_delete_payment_status_cron"
+                            string="Delete Cron"
+                            type="object"
+                            attrs="{'invisible':[('payment_status_cron_id','=',False)]}"
+                        />
+                        <field name="payment_status_python_code" nolabel="1" />
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

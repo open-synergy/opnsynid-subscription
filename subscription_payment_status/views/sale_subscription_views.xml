@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+<data>
+  <record id="sale_subscription_view_form" model="ir.ui.view">
+      <field name="name">sale.subscription form</field>
+      <field name="model">sale.subscription</field>
+      <field
+                name="inherit_id"
+                ref="subscription_payment_schedule.sale_subscription_workflow_view_form"
+            />
+      <field name="arch" type="xml">
+          <xpath
+                    expr="//button[@name='action_create_payment_schedule']"
+                    position="before"
+                >
+              <group name="payment_status" colspan="4" col="2">
+                  <field name="payment_status_id" />
+              </group>
+          </xpath>
+      </field>
+  </record>
+
+  <record id="sale_subscription_view_tree" model="ir.ui.view">
+      <field name="name">sale.subscription tree</field>
+      <field name="model">sale.subscription</field>
+      <field name="inherit_id" ref="sale_subscription.sale_subscription_view_list" />
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='state']" position="before">
+              <field name="payment_status_id" />
+          </xpath>
+      </field>
+  </record>
+</data>
+</odoo>
