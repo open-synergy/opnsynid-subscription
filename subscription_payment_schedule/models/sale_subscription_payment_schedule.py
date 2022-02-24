@@ -201,8 +201,10 @@ class SaleSubscriptionPaymentSchedule(models.Model):
             "type_id": "out_invoice",
             "payment_term_id": subscription.payment_term_id.id,
             "name": name,
-            "user_id": self.user_id.id,
-            "team_id": self.user_id.team_id and self.user_id.team_id.id or False,
+            "user_id": subscription.user_id.id,
+            "team_id": subscription.user_id.team_id
+            and subscription.user_id.team_id.id
+            or False,
         }
 
     @api.multi
