@@ -122,6 +122,9 @@
     <field name="states">confirm</field>
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="0" />
+    <field name="additional_python_code">result = False
+    if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
 </record>
 <record
             id="sale_subscription_policy_template_detail_reject_ok"
@@ -136,6 +139,9 @@
     <field name="states">confirm</field>
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="0" />
+    <field name="additional_python_code">result = False
+    if env.user.id in document.active_approver_user_ids.ids:
+    result = True</field>
 </record>
 </data>
 </odoo>
