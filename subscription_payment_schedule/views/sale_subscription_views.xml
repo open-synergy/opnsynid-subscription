@@ -26,6 +26,7 @@
                   <field name="invoice_number" />
                   <field name="invoice_method" />
                   <field name="date_invoice_offset" />
+                  <field name="first_date_invoice" />
                   <field name="payment_term_id" />
                 </xpath>
                 <xpath expr="//page[@id='lines']" position="after">
