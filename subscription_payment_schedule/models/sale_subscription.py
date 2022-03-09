@@ -162,6 +162,23 @@ class SaleSubscription(models.Model):
         copy=False,
     )
 
+    @api.depends(
+        "payment_schedule_ids",
+        "payment_schedule_ids.date_invoice",
+    )
+    def _compute_first_invoice_date(self):
+        for record in self:
+            result = False
+            if len(record.payment_schedule_ids) > 0:
+                result = record.payment_schedule_ids[0].date_invoice
+            record.first_date_invoice = result
+
+    first_date_invoice = fields.Date(
+        string="First Date Invoice",
+        compute="_compute_first_invoice_date",
+        store=True,
+    )
+
     @api.multi
     def action_create_payment_schedule(self):
         for document in self:
