@@ -13,3 +13,4 @@
 #
 # To provide both the URL and a branch, use:
 ssi-mixin https://github.com/open-synergy/ssi-mixin.git 11.0
+opnsynid-account-invoicing https://github.com/open-synergy/opnsynid-account-invoicing.git 11.0
