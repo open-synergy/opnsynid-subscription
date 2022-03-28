@@ -268,10 +268,11 @@ class SaleSubscription(models.Model):
         obj_schedule = self.env["sale.subscription.payment_schedule"]
         error_msg = _("Cancel all schedule invoice(s)")
         for record in self:
-            criteria = record._prepare_check_schedule_dom()
-            count_schedule = obj_schedule.search_count(criteria)
-            if count_schedule > 0:
-                raise UserError(error_msg)
+            if record.state == "cancel":
+                criteria = record._prepare_check_schedule_dom()
+                count_schedule = obj_schedule.search_count(criteria)
+                if count_schedule > 0:
+                    raise UserError(error_msg)
 
     @api.multi
     def _prepare_check_schedule_dom(self):

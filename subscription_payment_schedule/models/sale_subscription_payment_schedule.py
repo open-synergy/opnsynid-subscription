@@ -55,7 +55,7 @@ class SaleSubscriptionPaymentSchedule(models.Model):
     )
     def _compute_state(self):
         for record in self:
-            if record.subscription_id.state in ["draft", "confirm", "reject"]:
+            if record.subscription_id.state in ["draft", "confirm", "reject", "cancel"]:
                 state = "draft"
             elif record.subscription_id.state in ["open", "close"]:
                 if record.invoice_id:
@@ -64,6 +64,8 @@ class SaleSubscriptionPaymentSchedule(models.Model):
                     state = "free"
                 elif record.manual:
                     state = "manual"
+                elif record.subscription_id.state == "close" and not record.invoice_id:
+                    state = "noinvoice"
                 else:
                     state = "uninvoiced"
             else:
@@ -75,6 +77,7 @@ class SaleSubscriptionPaymentSchedule(models.Model):
         selection=[
             ("draft", "Draft"),
             ("uninvoiced", "Uninvoiced"),
+            ("noinvoice", "No Invoice"),
             ("invoiced", "Invoiced"),
             ("cancelled", "Cancelled"),
             ("free", "Free"),
@@ -158,8 +161,17 @@ class SaleSubscriptionPaymentSchedule(models.Model):
     @api.multi
     def _disconnect_invoice(self):
         self.ensure_one()
-        self.invoice_id.action_invoice_cancel()
-        self.write({"invoice_id": False})
+        self.invoice_id.write(
+            {
+                "source_document_res_id": 0,
+                "source_document_model_id": False,
+            }
+        )
+        self.write(
+            {
+                "invoice_id": False,
+            }
+        )
 
     @api.multi
     def _create_invoice(self):
@@ -205,6 +217,10 @@ class SaleSubscriptionPaymentSchedule(models.Model):
             "team_id": subscription.user_id.team_id
             and subscription.user_id.team_id.id
             or False,
+            "source_document_model_id": self.env.ref(
+                "sale_subscription.model_sale_subscription"
+            ).id,
+            "source_document_res_id": subscription.id,
         }
 
     @api.multi
