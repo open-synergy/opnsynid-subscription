@@ -39,6 +39,14 @@ class SaleSubscription(models.Model):
         string="Person in Charge",
         comodel_name="res.partner",
     )
+    finance_pic_id = fields.Many2one(
+        string="Finance PIC",
+        comodel_name="res.partner",
+    )
+    tax_pic_id = fields.Many2one(
+        string="Tax PIC",
+        comodel_name="res.partner",
+    )
 
     @api.onchange(
         "partner_id",

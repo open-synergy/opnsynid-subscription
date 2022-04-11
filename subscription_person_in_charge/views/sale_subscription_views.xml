@@ -13,6 +13,8 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="allowed_pic_ids" widget="many2many_tags" invisible="1" />
                 <field name="pic_id" domain="[('id','in',allowed_pic_ids)]" />
+                <field name="finance_pic_id" domain="[('id','in',allowed_pic_ids)]" />
+                <field name="tax_pic_id" domain="[('id','in',allowed_pic_ids)]" />
             </xpath>
         </data>
     </field>
