@@ -176,6 +176,9 @@ class SaleSubscriptionPaymentSchedule(models.Model):
     @api.multi
     def _create_invoice(self):
         self.ensure_one()
+        if self.invoice_id:
+            error_msg = _("There is already an invoice")
+            raise UserError(error_msg)
         subscription = self.subscription_id
         obj_account_invoice = self.env["account.invoice"]
         invoice = obj_account_invoice.create(self._prepare_invoice_data())
