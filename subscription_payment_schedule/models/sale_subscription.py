@@ -165,6 +165,8 @@ class SaleSubscription(models.Model):
     @api.depends(
         "payment_schedule_ids",
         "payment_schedule_ids.date_invoice",
+        "payment_schedule_ids.state",
+        "state",
     )
     def _compute_first_invoice_date(self):
         for record in self:
@@ -176,6 +178,57 @@ class SaleSubscription(models.Model):
     first_date_invoice = fields.Date(
         string="First Date Invoice",
         compute="_compute_first_invoice_date",
+        store=True,
+    )
+
+    @api.depends(
+        "payment_schedule_ids",
+        "payment_schedule_ids.date_invoice",
+        "payment_schedule_ids.state",
+    )
+    def _compute_first_payment_schedule_state(self):
+        for record in self:
+            result = False
+            if len(record.payment_schedule_ids) > 0:
+                result = record.payment_schedule_ids[0].state
+            record.first_payment_schedule_state = result
+
+    first_payment_schedule_state = fields.Selection(
+        string="State",
+        selection=[
+            ("draft", "Draft"),
+            ("uninvoiced", "Uninvoiced"),
+            ("noinvoice", "No Invoice"),
+            ("invoiced", "Invoiced"),
+            ("cancelled", "Cancelled"),
+            ("free", "Free"),
+            ("manual", "Manually Controlled"),
+        ],
+        compute="_compute_first_payment_schedule_state",
+        store=True,
+    )
+
+    @api.depends(
+        "payment_schedule_ids",
+        "payment_schedule_ids.date_invoice",
+        "payment_schedule_ids.state",
+    )
+    def _compute_next_invoice_date(self):
+        obj_schedule = self.env["sale.subscription.payment_schedule"]
+        for record in self:
+            result = False
+            criteria = [
+                ("subscription_id", "=", record.id),
+                ("state", "=", "uninvoiced"),
+            ]
+            schedule = obj_schedule.search(criteria, limit=1)
+            if len(schedule) == 1:
+                result = schedule[0].date_invoice
+            record.next_invoice_date = result
+
+    next_invoice_date = fields.Date(
+        string="Next Date Invoice",
+        compute="_compute_next_invoice_date",
         store=True,
     )
 
