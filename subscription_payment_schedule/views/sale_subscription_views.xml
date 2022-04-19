@@ -25,6 +25,7 @@
                   <field name="daily_period" />
                   <field name="invoice_number" />
                   <field name="invoice_method" />
+                  <field name="invoice_computation_method" />
                   <field name="date_invoice_offset" />
                   <field name="first_date_invoice" />
                   <field name="payment_term_id" />

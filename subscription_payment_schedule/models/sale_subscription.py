@@ -121,6 +121,18 @@ class SaleSubscription(models.Model):
         compute="_compute_invoice_number",
         store=True,
     )
+    invoice_computation_method = fields.Selection(
+        string="Invoice Computation",
+        selection=[("offset", "Offset"), ("fixed", "Fixed Date")],
+        required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+        default="offset",
+    )
     invoice_method = fields.Selection(
         string="Invoice Method",
         selection=[
@@ -281,12 +293,20 @@ class SaleSubscription(models.Model):
     @api.multi
     def _get_payment_schedule_date_invoice(self, date_start, date_end):
         self.ensure_one()
-        if self.invoice_method == "advance":
-            factor = relativedelta(days=(self.date_invoice_offset * -1))
-            date = date_start
+        if self.invoice_computation_method == "offset":
+            if self.invoice_method == "advance":
+                factor = relativedelta(days=(self.date_invoice_offset * -1))
+                date = date_start
+            else:
+                factor = relativedelta(days=self.date_invoice_offset)
+                date = date_end
         else:
-            factor = relativedelta(days=self.date_invoice_offset)
-            date = date_end
+            if self.invoice_method == "advance":
+                factor = relativedelta(months=-1, day=self.date_invoice_offset)
+                date = date_start
+            else:
+                factor = relativedelta(months=1, day=self.date_invoice_offset)
+                date = date_start
 
         dt_date = fields.Date.from_string(date)
         date_invoice = dt_date + factor
