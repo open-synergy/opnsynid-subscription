@@ -7,7 +7,7 @@ include_aeroo_report: false
 include_wkhtmltopdf: false
 odoo_version: 11.0
 rebel_module_groups: []
-repo_description: null
+repo_description: opnsynid-subscription
 repo_name: opnsynid-subscription
 repo_slug: opnsynid-subscription
 travis_apt_packages: []
