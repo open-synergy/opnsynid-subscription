@@ -6,7 +6,7 @@
 
 # opnsynid-subscription
 
-None
+opnsynid-subscription
 
 <!-- /!\ do not modify below this line -->
 
