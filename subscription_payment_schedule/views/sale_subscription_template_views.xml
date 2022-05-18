@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="sale_subscription_template_auto_inv_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription_template_auto_inv form</field>
+        <field
+            name="inherit_id"
+            ref="subscription_auto_generate_invoice.sale_subscription_template_auto_inv_view_form"
+        />
+        <field name="model">sale.subscription.template</field>
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='cron_id']" position="after">
+                  <field name="backdate_auto_create_invoice_offset" />
+                  <field name="forwarddate_auto_create_invoice_offset" />
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

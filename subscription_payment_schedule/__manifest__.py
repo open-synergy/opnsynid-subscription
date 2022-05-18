@@ -4,7 +4,7 @@
 
 {
     "name": "Subscription Payment Schedule",
-    "version": "11.0.2.2.0",
+    "version": "11.0.2.3.0",
     "license": "LGPL-3",
     "category": "Sales",
     "website": "https://simetri-sinergi.id",
@@ -19,6 +19,7 @@
         "security/ir.model.access.csv",
         "wizards/sale_subscription_link_invoice.xml",
         "views/sale_subscription_views.xml",
+        "views/sale_subscription_template_views.xml",
     ],
     "installable": True,
     "auto_install": False,
