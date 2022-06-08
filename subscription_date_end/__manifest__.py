@@ -4,7 +4,7 @@
 
 {
     "name": "Subscription Date End",
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.1.0",
     "license": "LGPL-3",
     "category": "Sales",
     "website": "https://simetri-sinergi.id",
@@ -14,6 +14,7 @@
     ],
     "data": [
         "views/sale_subscription_views.xml",
+        "wizards/sale_subscription_close_reason_wizard_views.xml",
     ],
     "installable": True,
     "auto_install": False,
