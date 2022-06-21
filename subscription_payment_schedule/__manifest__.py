@@ -4,7 +4,7 @@
 
 {
     "name": "Subscription Payment Schedule",
-    "version": "11.0.2.3.0",
+    "version": "11.0.2.4.0",
     "license": "LGPL-3",
     "category": "Sales",
     "website": "https://simetri-sinergi.id",
