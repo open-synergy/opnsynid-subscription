@@ -64,3 +64,11 @@ class SaleSubscriptionLinkInvoice(models.TransientModel):
                 "invoice_id": self.invoice_id.id,
             }
         )
+        self.invoice_id.write(
+            {
+                "source_document_model_id": self.env.ref(
+                    "sale_subscription.model_sale_subscription"
+                ).id,
+                "source_document_res_id": self.schedule_id.subscription_id.id,
+            }
+        )
