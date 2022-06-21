@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="sale_subscription_template_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription - form</field>
+        <field name="model">sale.subscription.template</field>
+        <field
+            name="inherit_id"
+            ref="sale_subscription.sale_subscription_template_view_form"
+        />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="grace_period" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>
