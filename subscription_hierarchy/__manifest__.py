@@ -4,13 +4,14 @@
 
 {
     "name": "Subscription Hierarchy",
-    "version": "11.0.1.0.0",
+    "version": "11.0.2.0.0",
     "license": "LGPL-3",
     "category": "Sales",
     "website": "https://simetri-sinergi.id",
     "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "depends": [
         "subscription_workflow_policy",
+        "subscription_date_end",
     ],
     "data": [
         "views/sale_subscription_views.xml",

@@ -11,6 +11,9 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='template_id']" position="after">
             <field name="type" />
+        </xpath>
+
+        <xpath expr="//field[@name='date']" position="after">
             <field name="allowed_parent_ids" widget="many2many_tags" invisible="1" />
             <field
                         name="parent_id"

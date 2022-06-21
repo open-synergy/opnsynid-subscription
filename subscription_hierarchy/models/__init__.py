@@ -4,4 +4,5 @@
 
 from . import (
     sale_subscription,
+    sale_subscription_template,
 )
