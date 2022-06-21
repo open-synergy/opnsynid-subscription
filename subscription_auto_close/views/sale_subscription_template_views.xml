@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+    <record id="sale_subscription_template_view_form" model="ir.ui.view">
+        <field name="name">sale.subscription - form</field>
+        <field name="model">sale.subscription.template</field>
+        <field
+            name="inherit_id"
+            ref="sale_subscription.sale_subscription_template_view_form"
+        />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="auto_close_cron_id" />
+                    <button
+                        icon="fa-cogs"
+                        class="oe_highlight"
+                        name="action_create_auto_close_cron"
+                        string="Generate Cron"
+                        type="object"
+                        attrs="{'invisible':[('auto_close_cron_id','!=',False)]}"
+                    />
+                    <button
+                        icon="fa-eraser"
+                        class="oe_highlight"
+                        name="action_delete_auto_close_cron"
+                        string="Delete Cron"
+                        type="object"
+                        attrs="{'invisible':[('auto_close_cron_id','=',False)]}"
+                    />
+                    <field name="close_reason_id" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>
