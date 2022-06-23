@@ -188,7 +188,7 @@ class SaleSubscriptionPaymentSchedule(models.Model):
             }
         )
         for detail in subscription.recurring_invoice_line_ids:
-            detail._create_invoice_line(invoice)
+            detail._create_invoice_line(invoice, self.date_start, self.date_end)
         invoice.compute_taxes()
         return True
 
