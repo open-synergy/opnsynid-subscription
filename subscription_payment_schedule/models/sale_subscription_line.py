@@ -42,18 +42,21 @@ class SaleSubscriptionLine(models.Model):
         return result
 
     @api.multi
-    def _create_invoice_line(self, invoice):
+    def _create_invoice_line(self, invoice, date_start, date_end):
         self.ensure_one()
         obj_account_invoice_line = self.env["account.invoice.line"]
-        obj_account_invoice_line.create(self._prepare_invoice_line(invoice))
+        obj_account_invoice_line.create(
+            self._prepare_invoice_line(invoice, date_start, date_end)
+        )
 
     @api.multi
-    def _prepare_invoice_line(self, invoice):
+    def _prepare_invoice_line(self, invoice, date_start, date_end):
         self.ensure_one()
         account = self._get_account()
+        name = "{}: {} - {}".format(self.name, date_start, date_end)
         return {
             "invoice_id": invoice.id,
-            "name": self.name,
+            "name": name,
             "account_id": account.id,
             "price_unit": self.price_unit,
             "product_id": self.product_id.id,
