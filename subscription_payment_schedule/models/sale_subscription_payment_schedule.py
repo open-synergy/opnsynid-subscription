@@ -38,6 +38,32 @@ class SaleSubscriptionPaymentSchedule(models.Model):
         readonly=True,
         ondelete="restrict",
     )
+    currency_id = fields.Many2one(
+        string="Currency",
+        comodel_name="res.currency",
+        related="invoice_id.currency_id",
+        store=True,
+    )
+    amount_untaxed = fields.Monetary(
+        string="Untaxed",
+        related="invoice_id.amount_untaxed",
+        store=True,
+    )
+    amount_tax = fields.Monetary(
+        string="Tax",
+        related="invoice_id.amount_tax",
+        store=True,
+    )
+    amount_total = fields.Monetary(
+        string="Total ",
+        related="invoice_id.amount_total",
+        store=True,
+    )
+    residual = fields.Monetary(
+        string="Total ",
+        related="invoice_id.residual",
+        store=True,
+    )
     no_invoice = fields.Boolean(
         string="No Invoice",
         readonly=True,
