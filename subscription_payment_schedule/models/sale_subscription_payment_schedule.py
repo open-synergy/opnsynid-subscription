@@ -59,6 +59,20 @@ class SaleSubscriptionPaymentSchedule(models.Model):
         related="invoice_id.amount_total",
         store=True,
     )
+
+    @api.depends(
+        "subscription_id",
+        "subscription_id.recurring_total",
+    )
+    def _compute_total_subscription(self):
+        for record in self:
+            record.total_subscription = record.subscription_id.recurring_total
+
+    total_subscription = fields.Monetary(
+        string="Total Subscription",
+        compute="_compute_total_subscription",
+        store=True,
+    )
     residual = fields.Monetary(
         string="Total ",
         related="invoice_id.residual",
