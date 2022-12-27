@@ -64,8 +64,9 @@ class SaleSubscriptionTemplate(models.Model):
 
     @api.model
     def cron_auto_close(self, template_id):
-        template = self.search([("id", "=", template_id)])[0]
-        template._auto_close_subscription()
+        templates = self.browse([template_id])
+        if len(templates) > 0:
+            templates[0]._auto_close_subscription()
 
     @api.multi
     def _auto_close_subscription(self):
@@ -74,7 +75,7 @@ class SaleSubscriptionTemplate(models.Model):
         criteria = [
             ("template_id", "=", self.id),
             ("state", "in", ["open"]),
-            ("date", "=", fields.Date.today()),
+            ("date", "<", fields.Date.today()),
         ]
         obj_sale_subscription.search(criteria).write(
             {
