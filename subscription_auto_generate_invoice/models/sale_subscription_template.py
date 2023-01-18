@@ -40,30 +40,13 @@ class SaleSubscriptionTemplate(models.Model):
     @api.multi
     def _prepare_cron_data(self):
         self.ensure_one()
-        int_type = ""
-        int_number = 1
-        if self.recurring_rule_type == "daily":
-            int_type = "days"
-            int_number = self.recurring_interval
-        elif self.recurring_rule_type == "weekly":
-            int_type = "weeks"
-            int_number = self.recurring_interval
-        elif self.recurring_rule_type == "monthly":
-            int_type = "months"
-            int_number = self.recurring_interval
-        elif self.recurring_rule_type == "yearly":
-            int_type = "months"
-            int_number = self.recurring_interval * 12
-        else:
-            int_type = "days"
-            int_number = 1
         cron_name = "Generate Auto Invoice: %s" % (self.name)
         return {
             "name": cron_name,
             "user_id": self.env.user.id,
             "active": True,
-            "interval_number": int_number,
-            "interval_type": int_type,
+            "interval_number": 5,
+            "interval_type": "minutes",
             "numbercall": -1,
             "doall": False,
             "model_id": self.env.ref(
