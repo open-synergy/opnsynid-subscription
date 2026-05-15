@@ -14,7 +14,25 @@ opnsynid-subscription
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[subscription_auto_close](subscription_auto_close/) | 11.0.1.0.1 |  | Subscription Auto Close
+[subscription_auto_generate_invoice](subscription_auto_generate_invoice/) | 11.0.1.0.2 |  | Subscription Auto Generate Invoice
+[subscription_date_end](subscription_date_end/) | 11.0.1.1.0 |  | Subscription Date End
+[subscription_hierarchy](subscription_hierarchy/) | 11.0.2.0.0 |  | Subscription Hierarchy
+[subscription_multiple_approval](subscription_multiple_approval/) | 11.0.1.2.0 |  | Subscription Multiple Approval
+[subscription_no_auto_subscription](subscription_no_auto_subscription/) | 11.0.1.0.0 |  | Subscription No Auto Subscription
+[subscription_payment_schedule](subscription_payment_schedule/) | 11.0.2.6.0 |  | Subscription Payment Schedule
+[subscription_payment_status](subscription_payment_status/) | 11.0.1.0.0 |  | Subscription Payment Status
+[subscription_person_in_charge](subscription_person_in_charge/) | 11.0.1.1.0 |  | Subscription Person In Charge
+[subscription_related_attachment](subscription_related_attachment/) | 11.0.1.0.0 |  | Subscription Related Attachment
+[subscription_state_change_constrains](subscription_state_change_constrains/) | 11.0.1.0.0 |  | Subscription State Change Constrains
+[subscription_template_product](subscription_template_product/) | 11.0.1.1.0 |  | Subscription Template Product
+[subscription_user_login](subscription_user_login/) | 11.0.1.0.0 |  | Subscription User Login
+[subscription_workflow_activity](subscription_workflow_activity/) | 11.0.1.0.0 |  | Subscription Workflow Activity
+[subscription_workflow_policy](subscription_workflow_policy/) | 11.0.1.0.0 |  | Subscription Workflow Policy
 
 [//]: # (end addons)
 
