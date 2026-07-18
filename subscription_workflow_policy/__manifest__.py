@@ -4,7 +4,7 @@
 
 {
     "name": "Subscription Workflow Policy",
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.1.0",
     "license": "LGPL-3",
     "category": "Sales",
     "website": "https://simetri-sinergi.id",
@@ -14,6 +14,7 @@
         "ssi_policy_mixin",
     ],
     "data": [
+        "data/policy_template_data.xml",
         "views/sale_subscription_views.xml",
     ],
     "installable": True,
